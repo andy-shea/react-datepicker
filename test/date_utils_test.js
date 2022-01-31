@@ -32,6 +32,7 @@ import {
   yearsDisabledAfter,
   yearsDisabledBefore,
   getWeek,
+  safeDateFormat,
   safeDateRangeFormat,
 } from "../src/date_utils";
 import setMinutes from "date-fns/setMinutes";
@@ -1028,23 +1029,25 @@ describe("date_utils", function () {
     it("should return blank string when startDate and endDate are both null", () => {
       const startDate = null;
       const endDate = null;
-      expect(safeDateRangeFormat(startDate, endDate, props)).to.equal("");
+      expect(
+        safeDateRangeFormat(safeDateFormat, startDate, endDate, props)
+      ).to.equal("");
     });
 
     it("should return a formatted startDate followed by a dash when endDate is null", () => {
       const startDate = new Date("2021-04-20 00:00:00");
       const endDate = null;
-      expect(safeDateRangeFormat(startDate, endDate, props)).to.equal(
-        "04/20/2021 - "
-      );
+      expect(
+        safeDateRangeFormat(safeDateFormat, startDate, endDate, props)
+      ).to.equal("04/20/2021 - ");
     });
 
     it("should return a formatted startDate followed by a dash followed by a formatted endDate when startDate and endDate both have values", () => {
       const startDate = new Date("2021-04-20 00:00:00");
       const endDate = new Date("2021-04-28 00:00:00");
-      expect(safeDateRangeFormat(startDate, endDate, props)).to.equal(
-        "04/20/2021 - 04/28/2021"
-      );
+      expect(
+        safeDateRangeFormat(safeDateFormat, startDate, endDate, props)
+      ).to.equal("04/20/2021 - 04/28/2021");
     });
   });
 });

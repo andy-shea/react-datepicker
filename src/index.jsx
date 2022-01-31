@@ -74,6 +74,7 @@ export default class DatePicker extends React.Component {
       disabled: false,
       disabledKeyboardNavigation: false,
       dropdownMode: "scroll",
+      formatDate: safeDateFormat,
       onFocus() {},
       onBlur() {},
       onKeyDown() {},
@@ -166,6 +167,7 @@ export default class DatePicker extends React.Component {
     ),
     filterDate: PropTypes.func,
     fixedHeight: PropTypes.bool,
+    formatDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.array,
     id: PropTypes.string,
@@ -977,11 +979,12 @@ export default class DatePicker extends React.Component {
         ? this.state.inputValue
         : this.props.selectsRange
         ? safeDateRangeFormat(
+            formatDate,
             this.props.startDate,
             this.props.endDate,
             this.props
           )
-        : safeDateFormat(this.props.selected, this.props);
+        : formatDate(this.props.selected, this.props);
 
     return React.cloneElement(customInput, {
       [customInputRef]: (input) => {

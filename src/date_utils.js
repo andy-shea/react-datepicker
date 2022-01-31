@@ -177,13 +177,13 @@ export function safeDateFormat(date, { dateFormat, locale }) {
   );
 }
 
-export function safeDateRangeFormat(startDate, endDate, props) {
+export function safeDateRangeFormat(formatDate, startDate, endDate, props) {
   if (!startDate) {
     return "";
   }
 
-  const formattedStartDate = safeDateFormat(startDate, props);
-  const formattedEndDate = endDate ? safeDateFormat(endDate, props) : "";
+  const formattedStartDate = formatDate(startDate, props);
+  const formattedEndDate = endDate ? formatDate(endDate, props) : "";
 
   return `${formattedStartDate} - ${formattedEndDate}`;
 }
